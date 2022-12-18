@@ -55,7 +55,7 @@ const itemsCountToRemove = ref(0);
 const currentItemToRemove = ref({});
 
 inventoryStore.getInventoryItems().then(() => {
-    items.value = inventoryStore.items
+    items.value = inventoryStore.items;
 })
 
 const unsubscribe = inventoryStore.$onAction(

@@ -10,6 +10,7 @@
 import { ref, watch, computed } from 'vue'
 import Cell from './Cell.vue'
 import { v4 as uuid } from 'uuid'
+import { useInventoryStore } from '@stores/inventoryStore';
 
 const props = defineProps({
     size: {
@@ -22,6 +23,7 @@ const props = defineProps({
 })
 
 const items = ref([])
+const inventoryStore = useInventoryStore();
 
 fillGridWithEmptyCells();
 
@@ -30,9 +32,9 @@ const filteredItems = computed(() => {
 })
 
 watch(() => props.data, () => {
+    items.value = [];
+    fillGridWithEmptyCells();
     if (props.data.length > 0) {
-        items.value = [];
-        fillGridWithEmptyCells();
         updateGridWithNewItems();
     }
 }, {
@@ -100,16 +102,8 @@ function onItemDrop(event, droppedId) {
         return;
     }
 
-    for (let i = 0; i < items.value.length; i++) {
-        let currentItem = items.value[i];
+    inventoryStore.setPositionById(droppingId, droppedPosition);
 
-        if (currentItem.id === droppingId) {
-            currentItem.position = droppedPosition;
-        }
-        if (currentItem.id === droppedId) {
-            currentItem.position = droppingPosition;
-        }
-    }
 }
 
 function getPositionById(id) {
