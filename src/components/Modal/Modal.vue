@@ -1,5 +1,4 @@
 <template>
-    <Transition name="slide"></Transition>
     <div :class="classNames">
         <div class="modal__close" @click="onCloseModal">
             <Icon name="Close"/>

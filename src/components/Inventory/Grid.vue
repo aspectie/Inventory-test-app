@@ -17,7 +17,7 @@ const props = defineProps({
         required: true
     },
     data: {
-        type: Object
+        type: Array
     }
 })
 
@@ -31,8 +31,12 @@ const filteredItems = computed(() => {
 
 watch(() => props.data, () => {
     if (props.data.length > 0) {
+        items.value = [];
+        fillGridWithEmptyCells();
         updateGridWithNewItems();
     }
+}, {
+    deep: true
 })
 
 const emit = defineEmits(['openModal']);

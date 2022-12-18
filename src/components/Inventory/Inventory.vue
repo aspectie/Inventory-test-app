@@ -17,7 +17,14 @@
                         body
                     </template>
                     <template v-slot:footer>
-                        footer
+                        <Button title="Remove item" v-if="isShowRemoveButton" @click="onClickItemRemove"/>
+                        <div v-else>
+                            <Input type="text" name="itemsCount" placeholder="Put items count" @input="onInputItemsCount"/>
+                            <div class="action-buttons">
+                                <Button title="Cancel" @click="closeModal"/>
+                                <Button title="Accept" @click="onClickAccept"/>
+                            </div>
+                        </div>
                     </template>
                 </Modal>
             </Transition>
@@ -36,23 +43,41 @@ import { useInventoryStore } from '@stores/inventoryStore.js'
 import Grid from './Grid.vue'
 import Modal from '@components/Modal/Modal.vue'
 import Icon from '@components/Icon/Icon.vue'
+import Button from '@components/Button/Button.vue'
+import Input from '@components/Input/Input.vue'
 
 const inventoryStore = useInventoryStore();
 const items = ref([]);
 const isOpenedModal = ref(false);
 const itemIcon = ref('');
+const isShowRemoveButton = ref(true);
+const itemsCountToRemove = ref(0);
+const currentItemToRemove = ref({});
 
 inventoryStore.getInventoryItems().then(() => {
     items.value = inventoryStore.items
 })
 
+const unsubscribe = inventoryStore.$onAction(
+  ({name, store, args, after, onError}) => {
+    if (['removeItem'].includes(name)) {
+      after(() => {
+        items.value = store.items;
+      });
+    }
+  }
+);
+
 function onOpenModal(item) {
     if (item.isEmpty) {
         return;
     }
+    currentItemToRemove.value = item;
+
+    showRemoveButton();
 
     if (isOpenedModal.value) {
-        isOpenedModal.value = false;
+        closeModal();
     } else {
         isOpenedModal.value = true;
     }
@@ -61,7 +86,34 @@ function onOpenModal(item) {
 }
 
 function onCloseModal() {
+    closeModal();
+}
+
+function closeModal() {
     isOpenedModal.value = false;
+}
+
+function showRemoveButton() {
+    isShowRemoveButton.value = true;
+}
+
+function onClickItemRemove() {
+    isShowRemoveButton.value = false;
+}
+
+function onInputItemsCount(event) {
+    itemsCountToRemove.value = event.target.value;
+}
+
+function onClickAccept() {
+    inventoryStore.removeItem(currentItemToRemove.value, itemsCountToRemove.value);
+    
+    const isCurrentItemExists = inventoryStore.getItemById(currentItemToRemove.value.id);
+
+    if (!isCurrentItemExists) {
+        closeModal();
+        currentItemToRemove.value = 0;
+    }
 }
 
 </script>
