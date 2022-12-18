@@ -1,8 +1,14 @@
 <template>
     <div class="inventory">
+        <!-- TODO: create sidebar and footer components -->
         <div class="inventory__sidebar">
-            <div class="sidebar-image">
-                <img src="@images/AvatarGhost.png" alt="">
+            <div class="sidebar">
+                <div class="sidebar__image">
+                    <img src="@images/AvatarGhost.png" alt="">
+                </div>
+                <div class="sidebar__body">
+                    ghost data
+                </div>
             </div>
         </div>
 
@@ -30,8 +36,15 @@
             </Transition>
         </div>
        
-        <div class="inventory__footer">
-            ghost
+        <div class="inventory__footer" v-if="isFooterShown">
+            <div class="footer">
+                <section class="footer__body">
+                    ghost data
+                </section>
+                <div class="footer__close">
+                    <Icon name="Close" @click="onFooterClose"/>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -53,6 +66,7 @@ const itemIcon = ref('');
 const isShowRemoveButton = ref(true);
 const itemsCountToRemove = ref(0);
 const currentItemToRemove = ref({});
+const isFooterShown = ref(true);
 
 function onOpenModal(item) {
     if (item.isEmpty) {
@@ -102,6 +116,10 @@ function onClickAccept() {
     }
 }
 
+function onFooterClose() {
+    isFooterShown.value = false
+}
+
 </script>
 
 <style lang="scss">
@@ -136,6 +154,7 @@ function onClickAccept() {
         width: 100%;
         margin-top: 24px;
         padding: 18px;
+        position: relative;
     }
 
     &__sidebar,
@@ -144,6 +163,29 @@ function onClickAccept() {
         background-color: #262626;
         border: 1px solid #4D4D4D;
         border-radius: 12px;
+    }
+
+    .sidebar {
+        &__body {
+            margin-top: 20px;
+            text-align: center;
+            color: #4D4D4D;
+        }
+    }
+
+    .footer {
+        color: #4D4D4D;
+        &__close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            &:hover{
+                svg > path {
+                    fill: #FA7272
+                }
+            }
+        }
     }
 }
 
