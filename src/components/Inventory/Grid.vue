@@ -1,7 +1,8 @@
 <template>
     <div class="grid" @dragover.prevent @dragenter.prevent>
         <Cell v-for="item in filteredItems" v-bind="item" :key="item.id" :draggable="item.isDraggable"
-            @drop="onItemDrop($event, item.id)" @dragstart="onItemDragStart($event, item)"  />
+            @drop="onItemDrop($event, item.id)" @dragstart="onItemDragStart($event, item)" 
+            @click="onItemClick($event, item)"/>
     </div>
 </template>
 
@@ -33,6 +34,12 @@ watch(() => props.data, () => {
         updateGridWithNewItems();
     }
 })
+
+const emit = defineEmits(['openModal']);
+
+function onItemClick(event, item) {
+    emit('openModal', item);
+}
 
 function filterItems() {
     return items.value.sort(function(a, b) {

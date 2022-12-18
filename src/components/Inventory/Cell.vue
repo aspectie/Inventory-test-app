@@ -2,7 +2,7 @@
     <div class="item" v-if="isEmpty"></div>
     <div class="item" v-else>
         <div class="item__icon">
-            <icon :name="name"/>
+            <icon :name="icon"/>
         </div>
         <div class="item__count">
             {{ props.count }}
@@ -18,7 +18,7 @@ const props = defineProps({
         type: Boolean,
         default: true
     },
-    name: {
+    icon: {
         type: String
     },
     count: {

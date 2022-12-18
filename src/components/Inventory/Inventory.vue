@@ -7,7 +7,20 @@
         </div>
 
         <div class="inventory__items">
-            <Grid :size="25" :data="items" />
+            <Grid :size="25" :data="items" @openModal="onOpenModal"/>
+            <Transition name="slide">
+                <Modal :isOpened="isOpenedModal" @closeModal="onCloseModal" v-if="isOpenedModal">
+                    <template v-slot:header>
+                        <Icon :name="itemIcon"/>
+                    </template>
+                    <template v-slot:body>
+                        body
+                    </template>
+                    <template v-slot:footer>
+                        footer
+                    </template>
+                </Modal>
+            </Transition>
         </div>
        
         <div class="inventory__footer">
@@ -21,14 +34,35 @@
 import { ref } from 'vue'
 import { useInventoryStore } from '@stores/inventoryStore.js'
 import Grid from './Grid.vue'
+import Modal from '@components/Modal/Modal.vue'
+import Icon from '@components/Icon/Icon.vue'
 
-const inventoryStore = useInventoryStore()
-const items = ref([])
+const inventoryStore = useInventoryStore();
+const items = ref([]);
+const isOpenedModal = ref(false);
+const itemIcon = ref('');
 
 inventoryStore.getInventoryItems().then(() => {
     items.value = inventoryStore.items
 })
 
+function onOpenModal(item) {
+    if (item.isEmpty) {
+        return;
+    }
+
+    if (isOpenedModal.value) {
+        isOpenedModal.value = false;
+    } else {
+        isOpenedModal.value = true;
+    }
+
+    itemIcon.value = item.icon;
+}
+
+function onCloseModal() {
+    isOpenedModal.value = false;
+}
 
 </script>
 
@@ -56,6 +90,7 @@ inventoryStore.getInventoryItems().then(() => {
         width: calc(70% - 24px);
         color: wheat;
         margin-left: 24px;
+        position: relative;
     }
 
     &__footer {
@@ -71,5 +106,18 @@ inventoryStore.getInventoryItems().then(() => {
         border: 1px solid #4D4D4D;
         border-radius: 12px;
     }
+}
+
+.slide-enter-active,
+.slide-leave-active {
+    transform: translateX(0);
+    transition: all 0.2s ease-in;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.3s ease-out;
 }
 </style>
