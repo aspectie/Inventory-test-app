@@ -43,6 +43,7 @@ const props = defineProps({
     position: relative;
     min-height: 100px;
     padding: 12px;
+    cursor: pointer;
 
     &__count {
         position: absolute;

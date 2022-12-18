@@ -17,12 +17,12 @@
                         body
                     </template>
                     <template v-slot:footer>
-                        <Button title="Remove item" v-if="isShowRemoveButton" @click="onClickItemRemove"/>
+                        <Button title="Remove item" type="destructive" v-if="isShowRemoveButton" @click="onClickItemRemove"/>
                         <div v-else>
-                            <Input type="text" name="itemsCount" placeholder="Put items count" @input="onInputItemsCount"/>
+                            <Input class="action-input" type="text" name="itemsCount" placeholder="Put items count" variant="outlined" @input="onInputItemsCount"/>
                             <div class="action-buttons">
-                                <Button title="Cancel" @click="closeModal"/>
-                                <Button title="Accept" @click="onClickAccept"/>
+                                <Button class="action-buttons__cancel" title="Cancel" type="default" @click="closeModal"/>
+                                <Button class="action-buttons__accept" title="Accept" type="destructive" @click="onClickAccept"/>
                             </div>
                         </div>
                     </template>
@@ -157,6 +157,24 @@ function onClickAccept() {
         background-color: #262626;
         border: 1px solid #4D4D4D;
         border-radius: 12px;
+    }
+}
+
+.action-input {
+    margin-bottom: 20px;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    &__cancel {
+        width: 40%;
+    }
+    &__accept {
+        width: 55%;
+    }
+    button {
+        box-shadow: 0px 0px 10px #FA7272;
     }
 }
 

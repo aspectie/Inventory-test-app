@@ -69,20 +69,31 @@ const classNames = computed(() => ({
         position: absolute;
         right: 14px;
         top: 14px;
+        cursor: pointer;
+        &:hover{
+            svg > path {
+                fill: #FA7272
+            }
+        }
     }
 
     &__header {
         padding: 45px;
         border-bottom: 1px solid #4D4D4D;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }    
 
     &__body {
         border-bottom: 1px solid #4D4D4D;
-        
+        height: 100%;    
+        padding: 20px;
+        color: #4D4D4D;
     }    
 
     &__footer {
-        
+        padding: 20px 0;
     }
 }
 

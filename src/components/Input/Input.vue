@@ -1,5 +1,5 @@
 <template>
-    <input :type="props.type" :name="props.name" :value="props.value" :placeholder="props.placeholder"/>
+    <input :class="classNames" :type="props.type" :name="props.name" :value="props.value" :placeholder="props.placeholder"/>
 </template>
 
 <script setup>
@@ -22,8 +22,41 @@ const props = defineProps({
     placeholder: {
         type: String,
         default: ''
-    }
+    },
+    variant: {
+        type: String,
+        default: 'solid',
+        validator: (s) => ['solid', 'outlined'].indexOf(s) > -1
+    },
 });
 
+const classNames = computed(() => ({
+    'input': true,
+    [`input--${props.variant}`]: true
+}))
 
 </script>
+
+<style lang="scss">
+.input {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    opacity: 0.4;
+    text-align: start;
+    padding: 6px;
+    outline: none;
+    &--outlined {
+        background: #262626;
+        border: 1px solid #4D4D4D;
+        border-radius: 4px;
+    }
+}
+
+</style>
