@@ -1,0 +1,124 @@
+<template>
+    <div class="grid" @dragover.prevent @dragenter.prevent>
+        <Cell v-for="item in filteredItems" v-bind="item" :key="item.id" :draggable="item.isDraggable"
+            @drop="onItemDrop($event, item.id)" @dragstart="onItemDragStart($event, item)"  />
+    </div>
+</template>
+
+<script setup>
+import { ref, watch, computed } from 'vue'
+import Cell from './Cell.vue'
+import { v4 as uuid } from 'uuid'
+
+const props = defineProps({
+    size: {
+        type: Number,
+        required: true
+    },
+    data: {
+        type: Object
+    }
+})
+
+const items = ref([])
+
+fillGridWithEmptyCells();
+
+const filteredItems = computed(() => {
+    return filterItems()
+})
+
+watch(() => props.data, () => {
+    if (props.data.length > 0) {
+        updateGridWithNewItems();
+    }
+})
+
+function filterItems() {
+    return items.value.sort(function(a, b) {
+        if (a.position > b.position) {
+            return 1;
+        }
+        if (a.position < b.position) {
+            return -1;
+        }
+        return 0
+    });
+}
+
+function fillGridWithEmptyCells() {
+    for (let i = 0; i < props.size; i++) {
+        let randomId = uuid();
+
+        items.value.push({ isEmpty: true, id: randomId, position: i + 1, isDraggable: false});
+    }
+}
+
+function updateGridWithNewItems() {
+    for (let i = 0; i < props.size; i++) {
+        for (let item of props.data) {
+            if (item.position === items.value[i].position) {
+                items.value[i] = {...item, isDraggable: true};
+            }
+        }
+    }
+}
+
+function onItemDragStart(event, item) {
+    const isEmpty = item.isEmpty;
+
+    if (isEmpty) {
+        return;
+    }
+
+    event.dataTransfer.dropEffect = 'move';
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('droppingId', item.id);
+}
+
+function onItemDrop(event, droppedId) {
+    if (event.dataTransfer.getData('droppingId') === '') {
+        return;
+    }
+
+    const droppingId = parseInt(event.dataTransfer.getData('droppingId'));
+    const droppingPosition = getPositionById(droppingId);
+    const droppedPosition = getPositionById(droppedId);
+
+    if (droppingPosition === droppedPosition) {
+        return;
+    }
+
+    for (let i = 0; i < items.value.length; i++) {
+        let currentItem = items.value[i];
+
+        if (currentItem.id === droppingId) {
+            currentItem.position = droppedPosition;
+        }
+        if (currentItem.id === droppedId) {
+            currentItem.position = droppingPosition;
+        }
+    }
+}
+
+function getPositionById(id) {
+    let position = null;
+
+    items.value.map(item => {
+        if (item.id === id) {
+            position = item.position;
+        }
+    })
+    return position;
+}
+
+</script>
+
+<style lang="scss">
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+</style>

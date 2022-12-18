@@ -1,0 +1,18 @@
+$font-family: 'SF';
+$font-directory: 'src/assets/fonts/';
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+$font-styles:
+    'BOLD' $font-weight-bold normal,
+    'MEDIUM' $font-weight-medium normal,
+    'REGULAR' $font-weight-regular normal;
+
+@each $font-style in $font-styles {
+    @font-face {
+        font-family: $font-family;
+        src: url($font-directory + $font-family + nth($font-style, 1) + '.OTF');
+        font-weight: nth($font-style, 2);
+        font-style: nth($font-style, 3);
+    }
+}
