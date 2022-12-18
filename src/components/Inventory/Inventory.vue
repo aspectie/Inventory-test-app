@@ -112,7 +112,7 @@ function onClickAccept() {
 
     if (!isCurrentItemExists) {
         closeModal();
-        currentItemToRemove.value = 0;
+        itemsCountToRemove.value = 0;
     }
 }
 
@@ -143,6 +143,7 @@ function onClickAccept() {
         color: wheat;
         margin-left: 24px;
         position: relative;
+        overflow: hidden;
     }
 
     &__footer {

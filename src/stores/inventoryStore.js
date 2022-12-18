@@ -22,8 +22,7 @@ export const useInventoryStore = defineStore('inventory', {
             }
 
             if (item.count <= Number(count)) {
-                // this.removeItemById(itemToRemove.id);
-                this.items = this.items.filter(item => String(item.id) !== String(itemToRemove.id));
+                this.removeItemById(itemToRemove.id);
             } else {
                 item.count = item.count - Number(count);
             }
