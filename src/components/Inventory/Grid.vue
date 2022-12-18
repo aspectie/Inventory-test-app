@@ -16,14 +16,17 @@ const props = defineProps({
     size: {
         type: Number,
         required: true
-    },
-    data: {
-        type: Array
     }
 })
 
-const items = ref([])
+const items = ref([]);
+const storeItems = ref([]);
+
 const inventoryStore = useInventoryStore();
+
+inventoryStore.getInventoryItems().then(() => {
+    storeItems.value = inventoryStore.items;
+})
 
 fillGridWithEmptyCells();
 
@@ -31,15 +34,19 @@ const filteredItems = computed(() => {
     return filterItems()
 })
 
-watch(() => props.data, () => {
-    items.value = [];
-    fillGridWithEmptyCells();
-    if (props.data.length > 0) {
-        updateGridWithNewItems();
-    }
+watch(() => storeItems.value, () => {
+    updateGridWithNewItems();
 }, {
     deep: true
 })
+
+const unsubscribe = inventoryStore.$onAction(
+  ({ store,  after }) => {
+    after(() => {
+        storeItems.value = store.items;
+    });
+  }
+);
 
 const emit = defineEmits(['openModal']);
 
@@ -48,11 +55,11 @@ function onItemClick(event, item) {
 }
 
 function filterItems() {
-    return items.value.sort(function(a, b) {
-        if (a.position > b.position) {
+    return items.value.sort(function(prev, next) {
+        if (prev.position > next.position) {
             return 1;
         }
-        if (a.position < b.position) {
+        if (prev.position < next.position) {
             return -1;
         }
         return 0
@@ -68,8 +75,10 @@ function fillGridWithEmptyCells() {
 }
 
 function updateGridWithNewItems() {
+    items.value = [];
+    fillGridWithEmptyCells();
     for (let i = 0; i < props.size; i++) {
-        for (let item of props.data) {
+        for (let item of storeItems.value) {
             if (item.position === items.value[i].position) {
                 items.value[i] = {...item, isDraggable: true};
             }
@@ -103,7 +112,6 @@ function onItemDrop(event, droppedId) {
     }
 
     inventoryStore.setPositionById(droppingId, droppedPosition);
-
 }
 
 function getPositionById(id) {
