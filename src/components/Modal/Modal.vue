@@ -51,7 +51,7 @@ const classNames = computed(() => ({
     top: 0;
     right: 0;
     height: 100%;
-    padding: 18px 14px;
+    padding: $spacing-m $spacing-xs;
     background-color: $color-secondary-background;
     border: 1px solid $color-primary-border;
     min-width: 150px;
@@ -68,8 +68,8 @@ const classNames = computed(() => ({
 
     &__close {
         position: absolute;
-        right: 14px;
-        top: 14px;
+        right: $spacing-xs;
+        top: $spacing-xs;
         cursor: pointer;
         &:hover{
             svg > path {
@@ -89,12 +89,12 @@ const classNames = computed(() => ({
     &__body {
         border-bottom: 1px solid $color-primary-border;
         height: 100%;
-        padding: 20px;
+        padding: $spacing-l;
         color: $color-primary-border;
     }
 
     &__footer {
-        padding: 20px 0;
+        padding: $spacing-l 0;
     }
 }
 
