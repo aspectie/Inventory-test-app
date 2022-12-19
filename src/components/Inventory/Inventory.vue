@@ -146,7 +146,7 @@ function onFooterClose() {
 
     &__items {
         width: calc(70% - $spacing-xxl);
-        color: wheat;
+        color: $color-primary-white;
         margin-left: $spacing-xxl;
         position: relative;
         overflow: hidden;
