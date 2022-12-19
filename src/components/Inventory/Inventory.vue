@@ -23,10 +23,12 @@
                         body
                     </template>
                     <template v-slot:footer>
-                        <Button title="Remove item" type="destructive" v-if="isShowRemoveButton" @click="onClickItemRemove"/>
-                        <div v-else>
-                            <Input class="action-input" type="text" name="itemsCount" placeholder="Put items count" variant="outlined" @input="onInputItemsCount"/>
-                            <div class="action-buttons">
+                        <div class="footer" v-if="isShowRemoveButton">
+                            <Button title="Remove item" type="destructive" @click="onClickItemRemove"/>
+                        </div>
+                        <div class="footer" v-else>
+                            <Input class="footer__action-input" type="text" name="itemsCount" placeholder="Put items count" variant="outlined" @input="onInputItemsCount"/>
+                            <div class="footer__action-buttons">
                                 <Button class="action-buttons__cancel" title="Cancel" type="default" @click="closeModal"/>
                                 <Button class="action-buttons__accept" title="Accept" type="destructive" @click="onClickAccept"/>
                             </div>
@@ -35,7 +37,7 @@
                 </Modal>
             </Transition>
         </div>
-       
+
         <div class="inventory__footer" v-if="isFooterShown">
             <div class="footer">
                 <section class="footer__body">
@@ -107,7 +109,7 @@ function onInputItemsCount(event) {
 
 function onClickAccept() {
     inventoryStore.removeItem(currentItemToRemove.value, itemsCountToRemove.value);
-    
+
     const isCurrentItemExists = inventoryStore.getItemById(currentItemToRemove.value.id);
 
     if (!isCurrentItemExists) {
@@ -124,9 +126,9 @@ function onFooterClose() {
 
 <style lang="scss">
 .inventory {
-    background-color: black;
     padding: 32px;
-    width: 100%;
+    width: 70%;
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     height: 100vh;
@@ -186,24 +188,26 @@ function onFooterClose() {
                 }
             }
         }
-    }
-}
+        &__action-input {
+            margin-bottom: 20px;
+            width: 100%;
+        }
 
-.action-input {
-    margin-bottom: 20px;
-}
-
-.action-buttons {
-    display: flex;
-    justify-content: space-between;
-    &__cancel {
-        width: 40%;
+        &__action-buttons {
+            display: flex;
+            justify-content: space-between;
+            button {
+                box-shadow: 0px 0px 10px #FA7272;
+            }
+        }
     }
-    &__accept {
-        width: 55%;
-    }
-    button {
-        box-shadow: 0px 0px 10px #FA7272;
+    .action-buttons {
+        &__cancel {
+            width: 40%;
+        }
+        &__accept {
+            width: 55%;
+        }
     }
 }
 

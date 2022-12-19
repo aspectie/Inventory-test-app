@@ -55,6 +55,7 @@ const classNames = computed(() => ({
     background-color: #262626;
     border: 1px solid #4D4D4D;
     min-width: 150px;
+    width: 30%;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -64,7 +65,7 @@ const classNames = computed(() => ({
     &--visible {
         visibility: visible;
     }
-    
+
     &__close {
         position: absolute;
         right: 14px;
@@ -83,14 +84,14 @@ const classNames = computed(() => ({
         display: flex;
         align-items: center;
         justify-content: center;
-    }    
+    }
 
     &__body {
         border-bottom: 1px solid #4D4D4D;
-        height: 100%;    
+        height: 100%;
         padding: 20px;
         color: #4D4D4D;
-    }    
+    }
 
     &__footer {
         padding: 20px 0;
