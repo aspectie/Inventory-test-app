@@ -111,6 +111,7 @@ function onItemDrop(event, droppedId) {
     }
 
     inventoryStore.setPositionById(droppingId, droppedPosition);
+    inventoryStore.setPositionById(droppedId, droppingPosition);
 }
 
 function getPositionById(id) {

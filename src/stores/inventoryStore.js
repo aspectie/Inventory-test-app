@@ -16,7 +16,7 @@ export const useInventoryStore = defineStore('inventory', () => {
         if (localStorageItems) {
             items.value = JSON.parse(localStorageItems)._value;
         } else {
-            items.value = data.items;            
+            items.value = data.items;
         }
     }
 
@@ -45,7 +45,11 @@ export const useInventoryStore = defineStore('inventory', () => {
     const setPositionById = (id, position) => {
         const item = getItemById(id);
 
-        item.position = position; 
+        if (!item) {
+            return;
+        }
+
+        item.position = position;
     }
 
     watch(() => items, (state) => {
@@ -53,9 +57,9 @@ export const useInventoryStore = defineStore('inventory', () => {
     }, {
         deep: true
     })
-    
+
     return {
-        items, 
+        items,
         getInventoryItems,
         removeItem,
         getItemById,
