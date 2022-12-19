@@ -45,14 +45,14 @@ const classNames = computed(() => ({
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    line-height: 17px;
+    line-height: $spacing-m;
     display: flex;
     align-items: center;
     text-align: center;
     color: $color-primary-white;
     opacity: 0.4;
     text-align: start;
-    padding: 6px;
+    padding: $spacing-xxs;
     outline: none;
     &--outlined {
         background-color: $color-secondary-background;

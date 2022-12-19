@@ -126,7 +126,7 @@ function onFooterClose() {
 
 <style lang="scss">
 .inventory {
-    padding: 32px;
+    padding: $spacing-xxxl;
     width: 70%;
     margin: 0 auto;
     display: flex;
@@ -141,21 +141,21 @@ function onFooterClose() {
 
     &__sidebar {
         width: 30%;
-        padding: 18px 14px;
+        padding: $spacing-m $spacing-xs;
     }
 
     &__items {
-        width: calc(70% - 24px);
+        width: calc(70% - $spacing-xxl);
         color: wheat;
-        margin-left: 24px;
+        margin-left: $spacing-xxl;
         position: relative;
         overflow: hidden;
     }
 
     &__footer {
         width: 100%;
-        margin-top: 24px;
-        padding: 18px;
+        margin-top: $spacing-xxl;
+        padding: $spacing-m;
         position: relative;
     }
 
@@ -169,7 +169,7 @@ function onFooterClose() {
 
     .sidebar {
         &__body {
-            margin-top: 20px;
+            margin-top: $spacing-l;
             text-align: center;
             color: $color-primary-border;
         }
@@ -189,7 +189,7 @@ function onFooterClose() {
             }
         }
         &__action-input {
-            margin-bottom: 20px;
+            margin-bottom: $spacing-l;
             width: 100%;
         }
 
