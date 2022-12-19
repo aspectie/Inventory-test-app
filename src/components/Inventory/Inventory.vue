@@ -162,8 +162,8 @@ function onFooterClose() {
     &__sidebar,
     &__items,
     &__footer {
-        background-color: #262626;
-        border: 1px solid #4D4D4D;
+        background-color: $color-secondary-background;
+        border: 1px solid $color-primary-border;
         border-radius: 12px;
     }
 
@@ -171,12 +171,12 @@ function onFooterClose() {
         &__body {
             margin-top: 20px;
             text-align: center;
-            color: #4D4D4D;
+            color: $color-primary-border;
         }
     }
 
     .footer {
-        color: #4D4D4D;
+        color: $color-primary-border;
         &__close {
             position: absolute;
             top: 5px;
@@ -184,7 +184,7 @@ function onFooterClose() {
             cursor: pointer;
             &:hover{
                 svg > path {
-                    fill: #FA7272
+                    fill: $color-primary-red
                 }
             }
         }
@@ -197,7 +197,7 @@ function onFooterClose() {
             display: flex;
             justify-content: space-between;
             button {
-                box-shadow: 0px 0px 10px #FA7272;
+                box-shadow: 0px 0px 10px $color-primary-red;
             }
         }
     }

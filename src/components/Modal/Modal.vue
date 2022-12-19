@@ -52,8 +52,8 @@ const classNames = computed(() => ({
     right: 0;
     height: 100%;
     padding: 18px 14px;
-    background-color: #262626;
-    border: 1px solid #4D4D4D;
+    background-color: $color-secondary-background;
+    border: 1px solid $color-primary-border;
     min-width: 150px;
     width: 30%;
     text-align: center;
@@ -73,24 +73,24 @@ const classNames = computed(() => ({
         cursor: pointer;
         &:hover{
             svg > path {
-                fill: #FA7272
+                fill: $color-primary-red
             }
         }
     }
 
     &__header {
         padding: 45px;
-        border-bottom: 1px solid #4D4D4D;
+        border-bottom: 1px solid $color-primary-border;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
     &__body {
-        border-bottom: 1px solid #4D4D4D;
+        border-bottom: 1px solid $color-primary-border;
         height: 100%;
         padding: 20px;
-        color: #4D4D4D;
+        color: $color-primary-border;
     }
 
     &__footer {

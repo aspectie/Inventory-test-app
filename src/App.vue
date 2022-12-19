@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="app">
     <Inventory />
   </main>
 </template>
@@ -8,9 +8,3 @@
 import Inventory from '@components/Inventory/Inventory.vue'
 
 </script>
-
-<style lang="scss">
-
-@import './styles/main.scss'
-
-</style>
