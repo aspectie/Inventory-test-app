@@ -38,6 +38,8 @@ const classNames = computed(() => ({
 </script>
 
 <style lang="scss">
+
+
 .input {
     font-family: 'Inter';
     font-style: normal;
@@ -47,14 +49,14 @@ const classNames = computed(() => ({
     display: flex;
     align-items: center;
     text-align: center;
-    color: #FFFFFF;
+    color: $color-primary-white;
     opacity: 0.4;
     text-align: start;
     padding: 6px;
     outline: none;
     &--outlined {
-        background: #262626;
-        border: 1px solid #4D4D4D;
+        background-color: $color-secondary-background;
+        border: 1px solid $color-primary-border;
         border-radius: 4px;
     }
 }

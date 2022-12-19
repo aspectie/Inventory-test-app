@@ -36,7 +36,7 @@ const props = defineProps({
 
 .item {
     width: 20%;
-    border: 1px solid #4D4D4D;
+    border: 1px solid $color-primary-border;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,8 +49,8 @@ const props = defineProps({
         position: absolute;
         bottom: -1px;
         right: -1px;
-        padding: 8px;        
-        border: 1px solid #4D4D4D;
+        padding: 8px;
+        border: 1px solid $color-primary-border;
         font-family: 'SF';
         font-style: normal;
         font-weight: 500;
@@ -59,7 +59,7 @@ const props = defineProps({
         align-items: center;
         text-align: center;
         border-top-left-radius: 10px;
-        color: #FFFFFF;
+        color: $color-primary-white;
         opacity: 0.4;
     }
     &:first-child {

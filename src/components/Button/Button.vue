@@ -41,15 +41,15 @@ const classNames = computed(() => ({
     font-size: 14px;
     cursor: pointer;
     &--destructive {
-        background-color: #FA7272;
+        background-color: $color-primary-red;
     }
     &--solid {
-        color: white;
+        color: $color-primary-white;
         border: 0;
     }
     &--default {
-        background-color: white;
-        color: #2D2D2D;
+        background-color: $color-primary-white;
+        color: $color-primary-black;
     }
 }
 
