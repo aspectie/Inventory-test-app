@@ -145,16 +145,16 @@ function onFooterClose() {
     }
 
     &__items {
-        width: calc(70% - 24px);
+        width: calc(70% - $spacing-xxl);
         color: wheat;
-        margin-left: 24px;
+        margin-left: $spacing-xxl;
         position: relative;
         overflow: hidden;
     }
 
     &__footer {
         width: 100%;
-        margin-top: 24px;
+        margin-top: $spacing-xxl;
         padding: $spacing-m;
         position: relative;
     }
