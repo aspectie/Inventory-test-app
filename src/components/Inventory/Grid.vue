@@ -1,7 +1,7 @@
 <template>
     <div class="grid" @dragover.prevent @dragenter.prevent>
         <Cell v-for="item in filteredItems" v-bind="item" :key="item.id" :draggable="item.isDraggable"
-            @drop="onItemDrop($event, item.id)" @dragstart="onItemDragStart($event, item)" 
+            @drop="onItemDrop($event, item.id)" @dragstart="onItemDragStart($event, item)"
             @click="onItemClick($event, item)"/>
     </div>
 </template>
@@ -26,7 +26,14 @@ const inventoryStore = useInventoryStore();
 
 inventoryStore.getInventoryItems().then(() => {
     storeItems.value = inventoryStore.items;
-})
+});
+
+inventoryStore.$onAction(({ store,  after }) => {
+    after(() => {
+        storeItems.value = store.items;
+    });
+});
+
 
 fillGridWithEmptyCells();
 
@@ -39,14 +46,6 @@ watch(() => storeItems.value, () => {
 }, {
     deep: true
 })
-
-const unsubscribe = inventoryStore.$onAction(
-  ({ store,  after }) => {
-    after(() => {
-        storeItems.value = store.items;
-    });
-  }
-);
 
 const emit = defineEmits(['openModal']);
 
