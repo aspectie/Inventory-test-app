@@ -126,7 +126,7 @@ function onFooterClose() {
 
 <style lang="scss">
 .inventory {
-    padding: 32px;
+    padding: $spacing-xxxl;
     width: 70%;
     margin: 0 auto;
     display: flex;
