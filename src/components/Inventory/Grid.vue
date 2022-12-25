@@ -67,7 +67,7 @@ function filterItems() {
 
 function fillGridWithEmptyCells() {
     for (let i = 0; i < props.size; i++) {
-        let randomId = uuid();
+        const randomId = uuid();
 
         items.value.push({ isEmpty: true, id: randomId, position: i + 1, isDraggable: false});
     }
@@ -77,7 +77,7 @@ function updateGridWithNewItems() {
     items.value = [];
     fillGridWithEmptyCells();
     for (let i = 0; i < props.size; i++) {
-        for (let item of storeItems.value) {
+        for (const item of storeItems.value) {
             if (item.position === items.value[i].position) {
                 items.value[i] = {...item, isDraggable: true};
             }

@@ -21,7 +21,7 @@ export const useInventoryStore = defineStore('inventory', () => {
     }
 
     const removeItem = (itemToRemove, count) => {
-        let item = getItemById(itemToRemove.id);
+        const item = getItemById(itemToRemove.id);
 
         if (!item || !Number(count) || Number(count) < 0) {
             return;

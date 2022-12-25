@@ -6,6 +6,7 @@
     "serve": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore .",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
@@ -17,12 +18,16 @@
   "devDependencies": {
     "@rollup/plugin-alias": "^4.0.2",
     "@rollup/plugin-dynamic-import-vars": "^2.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.47.0",
+    "@typescript-eslint/parser": "^5.47.0",
     "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/eslint-config-typescript": "^11.0.2",
     "axios-mock-adapter": "^1.21.2",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
     "sass": "^1.57.0",
     "sass-loader": "^13.2.0",
+    "typescript": "^4.9.4",
     "vite": "^4.0.0"
   }
 }
