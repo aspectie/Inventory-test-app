@@ -3,19 +3,12 @@ import axios from 'axios'
 import { Ref, ref, watch } from 'vue'
 
 import { inventoryAdapter } from '@api/inventory/inventoryApi.js'
+import InventoryItem from '../types/Inventory'
 
 inventoryAdapter()
 
-interface item {
-    icon: string,
-    count: number,
-    position: number,
-    isEmpty: boolean,
-    id: number
-}
-
 export const useInventoryStore = defineStore('inventory', () => {
-    const items: Ref<item[]> = ref([]);
+    const items: Ref<InventoryItem[]> = ref([]);
 
     const getInventoryItems = async() => {
         try {
@@ -32,7 +25,7 @@ export const useInventoryStore = defineStore('inventory', () => {
         }
     }
 
-    const removeItem = (itemToRemove: item, count: number) => {
+    const removeItem = (itemToRemove: InventoryItem, count: number) => {
         const item = getItemById(itemToRemove.id);
 
         if (!item || !Number(count) || Number(count) < 0) {
