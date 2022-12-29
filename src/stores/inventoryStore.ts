@@ -1,26 +1,38 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import { ref, watch } from 'vue'
+import { Ref, ref, watch } from 'vue'
 
 import { inventoryAdapter } from '@api/inventory/inventoryApi.js'
 
 inventoryAdapter()
 
+interface item {
+    icon: string,
+    count: number,
+    position: number,
+    isEmpty: boolean,
+    id: number
+}
+
 export const useInventoryStore = defineStore('inventory', () => {
-    const items = ref([]);
+    const items: Ref<item[]> = ref([]);
 
     const getInventoryItems = async() => {
-        const { data } = await axios.get('/api/inventory/getItems', {})
-        const localStorageItems = localStorage.getItem('items');
+        try {
+            const { data } = await axios.get('/api/inventory/getItems', {})
+            const localStorageItems = localStorage.getItem('items');
 
-        if (localStorageItems) {
-            items.value = JSON.parse(localStorageItems)._value;
-        } else {
-            items.value = data.items;            
+            if (localStorageItems) {
+                items.value = JSON.parse(localStorageItems)._value;
+            } else {
+                items.value = data.items;
+            }
+        } catch (err) {
+            console.log(err);
         }
     }
 
-    const removeItem = (itemToRemove, count) => {
+    const removeItem = (itemToRemove: item, count: number) => {
         const item = getItemById(itemToRemove.id);
 
         if (!item || !Number(count) || Number(count) < 0) {
@@ -34,18 +46,18 @@ export const useInventoryStore = defineStore('inventory', () => {
         }
     }
 
-    const getItemById = (id) => {
+    const getItemById = (id: number) => {
         return items.value.filter(item => String(item.id) === String(id))[0];
     }
 
-    const removeItemById = (id) => {
+    const removeItemById = (id: number) => {
         return items.value = items.value.filter(item => String(item.id) !== String(id));
     }
 
-    const setPositionById = (id, position) => {
+    const setPositionById = (id: number, position: number) => {
         const item = getItemById(id);
 
-        item.position = position; 
+        item.position = position;
     }
 
     watch(() => items, (state) => {
@@ -53,9 +65,9 @@ export const useInventoryStore = defineStore('inventory', () => {
     }, {
         deep: true
     })
-    
+
     return {
-        items, 
+        items,
         getInventoryItems,
         removeItem,
         getItemById,

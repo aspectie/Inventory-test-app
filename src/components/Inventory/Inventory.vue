@@ -54,7 +54,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useInventoryStore } from '@stores/inventoryStore.js'
+import { useInventoryStore } from '@stores/inventoryStore.ts'
 import Grid from './Grid.vue'
 import Modal from '@components/Modal/Modal.vue'
 import Icon from '@components/Icon/Icon.vue'
