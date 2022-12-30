@@ -54,6 +54,8 @@ const classNames = computed(() => ({
     padding: $spacing-m $spacing-xs;
     background-color: $color-secondary-background;
     border: 1px solid $color-primary-border;
+    border-top-right-radius: $spacing-xxs;
+    border-bottom-right-radius: $spacing-xxs;
     min-width: 150px;
     width: 30%;
     text-align: center;
