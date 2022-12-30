@@ -2,8 +2,8 @@
     <component :is="iconComponent" />
 </template>
 
-<script setup>
-import {ref, computed, watch} from "vue";
+<script setup lang="ts">
+import {ref, computed, watch, Ref} from "vue";
 import { defineAsyncComponent } from "vue";
 const props = defineProps({
     name: {
@@ -12,7 +12,7 @@ const props = defineProps({
     }
 });
 
-const iconName = ref(props.name);
+const iconName: Ref<string> = ref(props.name);
 
 watch(() => props.name, () => {
     iconName.value = props.name;

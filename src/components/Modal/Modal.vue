@@ -15,8 +15,8 @@
     </div>
 </template>
 
-<script setup>
-import { computed, watch, ref} from 'vue';
+<script setup lang="ts">
+import { computed, watch, ref, Ref} from 'vue';
 import Icon from '@components/Icon/Icon.vue'
 
 const props = defineProps({
@@ -26,7 +26,7 @@ const props = defineProps({
     }
 })
 
-const isOpenedModal = ref(props.isOpened);
+const isOpenedModal: Ref<boolean> = ref(props.isOpened);
 
 watch(() => props.isOpened, () => {
     isOpenedModal.value = props.isOpened;

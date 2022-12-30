@@ -2,7 +2,7 @@
     <input :class="classNames" :type="props.type" :name="props.name" :value="props.value" :placeholder="props.placeholder"/>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 
 const props = defineProps({
