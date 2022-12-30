@@ -15,7 +15,6 @@ export const useInventoryStore = defineStore('inventory', () => {
             const { data } = await axios.get('/api/inventory/getItems', {})
             const localStorageItems = localStorage.getItem('items');
 
-<<<<<<< HEAD:src/stores/inventoryStore.ts
             if (localStorageItems) {
                 items.value = JSON.parse(localStorageItems)._value;
             } else {
@@ -23,12 +22,6 @@ export const useInventoryStore = defineStore('inventory', () => {
             }
         } catch (err) {
             console.log(err);
-=======
-        if (localStorageItems) {
-            items.value = JSON.parse(localStorageItems)._value;
-        } else {
-            items.value = data.items;
->>>>>>> master:src/stores/inventoryStore.js
         }
     }
 
@@ -56,14 +49,11 @@ export const useInventoryStore = defineStore('inventory', () => {
 
     const setPositionById = (id: number, position: number) => {
         const item = getItemById(id);
-
-<<<<<<< HEAD:src/stores/inventoryStore.ts
-=======
+        
         if (!item) {
             return;
         }
 
->>>>>>> master:src/stores/inventoryStore.js
         item.position = position;
     }
 
