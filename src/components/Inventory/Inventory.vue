@@ -133,8 +133,6 @@ function onFooterClose() {
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    height: 100vh;
-    overflow-y: auto;
 
     img, svg {
         width: 100%;
@@ -205,10 +203,10 @@ function onFooterClose() {
     }
     .action-buttons {
         &__cancel {
-            width: 40%;
+            width: 45%;
         }
         &__accept {
-            width: 55%;
+            width: 50%;
         }
     }
 }
