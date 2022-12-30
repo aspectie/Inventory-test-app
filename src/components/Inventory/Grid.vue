@@ -6,11 +6,12 @@
     </div>
 </template>
 
-<script setup>
-import { ref, watch, computed } from 'vue'
+<script setup lang="ts">
+import { ref, watch, computed, Ref } from 'vue'
 import Cell from './Cell.vue'
 import { v4 as uuid } from 'uuid'
 import { useInventoryStore } from '@stores/inventoryStore';
+import {InventoryItem, InventoryStore} from '/@/types/Inventory';
 
 const props = defineProps({
     size: {
@@ -19,8 +20,8 @@ const props = defineProps({
     }
 })
 
-const items = ref([]);
-const storeItems = ref([]);
+const items: Ref<InventoryItem[]> = ref([]);
+const storeItems: Ref<InventoryItem[]> = ref([]);
 
 const inventoryStore = useInventoryStore();
 
@@ -28,7 +29,7 @@ inventoryStore.getInventoryItems().then(() => {
     storeItems.value = inventoryStore.items;
 });
 
-inventoryStore.$onAction(({ store,  after }) => {
+inventoryStore.$onAction(({ store, after }: { store: InventoryStore, after: (fn: () => void) => void }) => {
     after(() => {
         storeItems.value = store.items;
     });
@@ -49,7 +50,7 @@ watch(() => storeItems.value, () => {
 
 const emit = defineEmits(['openModal']);
 
-function onItemClick(event, item) {
+function onItemClick(event: Event, item: InventoryItem) {
     emit('openModal', item);
 }
 
@@ -61,15 +62,15 @@ function filterItems() {
         if (prev.position < next.position) {
             return -1;
         }
-        return 0
+        return 0;
     });
 }
 
 function fillGridWithEmptyCells() {
     for (let i = 0; i < props.size; i++) {
-        let randomId = uuid();
+        const randomId: number = uuid();
 
-        items.value.push({ isEmpty: true, id: randomId, position: i + 1, isDraggable: false});
+        items.value.push({ isEmpty: true, id: randomId, position: i + 1, isDraggable: false, icon: '', count: 0});
     }
 }
 
@@ -77,7 +78,7 @@ function updateGridWithNewItems() {
     items.value = [];
     fillGridWithEmptyCells();
     for (let i = 0; i < props.size; i++) {
-        for (let item of storeItems.value) {
+        for (const item of storeItems.value) {
             if (item.position === items.value[i].position) {
                 items.value[i] = {...item, isDraggable: true};
             }
@@ -85,20 +86,20 @@ function updateGridWithNewItems() {
     }
 }
 
-function onItemDragStart(event, item) {
+function onItemDragStart(event: DragEvent, item: InventoryItem) {
     const isEmpty = item.isEmpty;
 
-    if (isEmpty) {
+    if (!event.dataTransfer || isEmpty) {
         return;
     }
 
     event.dataTransfer.dropEffect = 'move';
     event.dataTransfer.effectAllowed = 'move';
-    event.dataTransfer.setData('droppingId', item.id);
+    event.dataTransfer.setData('droppingId', String(item.id));
 }
 
-function onItemDrop(event, droppedId) {
-    if (event.dataTransfer.getData('droppingId') === '') {
+function onItemDrop(event: DragEvent, droppedId: number) {
+    if (!event.dataTransfer || event.dataTransfer.getData('droppingId') === '') {
         return;
     }
 
@@ -114,7 +115,7 @@ function onItemDrop(event, droppedId) {
     inventoryStore.setPositionById(droppedId, droppingPosition);
 }
 
-function getPositionById(id) {
+function getPositionById(id: number) {
     let position = null;
 
     items.value.map(item => {

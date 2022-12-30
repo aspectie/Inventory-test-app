@@ -2,7 +2,7 @@
     <button :class="classNames"> {{ title }} </button>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 
 const props = defineProps({
@@ -12,12 +12,12 @@ const props = defineProps({
     type: {
         type: String,
         default: 'default',
-        validator: (s) => ['default', 'destructive'].indexOf(s) > -1
+        validator: (s: string) => ['default', 'destructive'].indexOf(s) > -1
     },
     variant: {
         type: String,
         default: 'solid',
-        validator: (s) => ['solid'].indexOf(s) > -1
+        validator: (s: string) => ['solid'].indexOf(s) > -1
     },
 
 });

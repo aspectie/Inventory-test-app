@@ -52,25 +52,27 @@
 
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { useInventoryStore } from '@stores/inventoryStore.js'
+<script setup lang="ts">
+import { Ref, ref, Transition } from 'vue'
+import { useInventoryStore } from '@stores/inventoryStore.ts'
 import Grid from './Grid.vue'
 import Modal from '@components/Modal/Modal.vue'
 import Icon from '@components/Icon/Icon.vue'
 import Button from '@components/Button/Button.vue'
 import Input from '@components/Input/Input.vue'
+import InventoryItem from '/@/types/Inventory'
+import InputItemsCountEvent from '/@/types/Events'
 
 const inventoryStore = useInventoryStore();
-const items = ref([]);
-const isOpenedModal = ref(false);
-const itemIcon = ref('');
-const isShowRemoveButton = ref(true);
-const itemsCountToRemove = ref(0);
-const currentItemToRemove = ref({});
-const isFooterShown = ref(true);
+const items: Ref<InventoryItem[]> = ref([]);
+const isOpenedModal: Ref<boolean> = ref(false);
+const itemIcon: Ref<string> = ref('');
+const isShowRemoveButton: Ref<boolean> = ref(true);
+const itemsCountToRemove: Ref<number> = ref(0);
+const currentItemToRemove: Ref<InventoryItem | object> = ref({});
+const isFooterShown: Ref<boolean> = ref(true);
 
-function onOpenModal(item) {
+function onOpenModal(item: InventoryItem) {
     if (item.isEmpty) {
         return;
     }
@@ -103,8 +105,8 @@ function onClickItemRemove() {
     isShowRemoveButton.value = false;
 }
 
-function onInputItemsCount(event) {
-    itemsCountToRemove.value = event.target.value;
+function onInputItemsCount(event: InputItemsCountEvent) {
+    itemsCountToRemove.value = Number(event.target.value);
 }
 
 function onClickAccept() {
