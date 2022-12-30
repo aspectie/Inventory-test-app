@@ -1,9 +1,12 @@
-interface InventoryItem {
+export interface InventoryItem {
     icon: string,
     count: number,
     position: number,
     isEmpty: boolean,
-    id: number
+    id: number,
+    isDraggable: boolean
 }
 
-export default InventoryItem;
+export interface InventoryStore {
+    items: InventoryItem[]
+}
